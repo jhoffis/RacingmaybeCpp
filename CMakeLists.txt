@@ -3,7 +3,7 @@ project(untitled3)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/glad.c)
+add_executable(${PROJECT_NAME} src/main.cpp src/glad.c src/engine/io/Window.cpp src/engine/io/Window.h)
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 include_directories( ${OPENGL_INCLUDE_DIRS} )

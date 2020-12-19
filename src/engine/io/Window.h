@@ -40,7 +40,8 @@ private:
     // private Action closingProtocol;
 //private SceneHandler sceneHandler;
     int fullscreen = -1;
-    GLFWwindow* window, monitor;
+    GLFWwindow *window;
+    GLFWmonitor *monitor;
     bool previousMouseStateVisible;
     long cursorNormal, cursorCanPoint, cursorIsPoint, cursorCanHold, cursorIsHold;
     CursorType cursorTypeSelected;
@@ -49,7 +50,7 @@ private:
     void updateWithinWindow(int currWidth);
     long createCursor(char32_t *path, float xPercent);
     GLFWimage createGLFWImage(char32_t *path);
-    long getCurrentMonitor();
+    GLFWmonitor * getCurrentMonitor();
 
 };
 
