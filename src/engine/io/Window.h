@@ -2,10 +2,9 @@
 // Created by Jens Benz on 19.12.2020.
 //
 #include <GLFW\glfw3.h>
+#include <string>
 #ifndef UNTITLED3_WINDOW_H
 #define UNTITLED3_WINDOW_H
-
-int WIDTH, HEIGHT;
 
 enum CursorType {
     cursorNormal,
@@ -18,10 +17,10 @@ enum CursorType {
 class Window {
 
 public:
-
+    static int WIDTH, HEIGHT;
     Window(bool fullscreen, bool vsync);
     ~Window();
-    void setCursor(CursorType cursor);
+    constexpr void setCursor(CursorType cursor);
     void setFullscreen(bool fullscreen);
     void mouseStateHide(bool lock);
     void mouseStateToPrevious();
@@ -43,13 +42,13 @@ private:
     GLFWwindow *window;
     GLFWmonitor *monitor;
     bool previousMouseStateVisible;
-    long cursorNormal, cursorCanPoint, cursorIsPoint, cursorCanHold, cursorIsHold;
-    CursorType cursorTypeSelected;
+    GLFWcursor *cursorNormal, *cursorCanPoint, *cursorIsPoint, *cursorCanHold, *cursorIsHold;
+    CursorType &cursorTypeSelected;
     bool focused;
 
     void updateWithinWindow(int currWidth);
-    long createCursor(char32_t *path, float xPercent);
-    GLFWimage createGLFWImage(char32_t *path);
+    constexpr GLFWcursor *createCursor(const char *path, float xPercent);
+    constexpr GLFWimage *createGLFWImage(const char *path);
     GLFWmonitor * getCurrentMonitor();
 
 };
