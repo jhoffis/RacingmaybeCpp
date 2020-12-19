@@ -1,32 +1,64 @@
 //
 // Created by Jens Benz on 19.12.2020.
 //
-
 #include <algorithm>
 #include "Window.h"
-#include "stb_image.h"
+#include <stb_image.h>
+#include <filesystem>
 #include "src/main/Game.h"
 
 void glfwErrors(int error_code, const char *description) {
-    throw std::string("GLFW ERROR: ").append(reinterpret_cast<const char *>(error_code)).append("\n").append(description);
+    throw std::runtime_error(std::string("GLFW ERROR: ").append(reinterpret_cast<const char *>(error_code)).append("\n").append(description));
 }
+
+GLFWmonitor *Window::getCurrentMonitor(GLFWwindow *window, GLFWmonitor *monitor) {
+    int wx, wy, ww, wh;
+    int mx, my, mw, mh;
+    int overlap, bestoverlap = 0;
+    GLFWmonitor *monitorTemp, *bestmonitor = monitor;
+    const GLFWvidmode *mode;
+
+    glfwGetWindowPos(window, &wx, &wy);
+    glfwGetWindowSize(window, &ww, &wh);
+    int monitorCount = 0;
+    GLFWmonitor **monitors = glfwGetMonitors(&monitorCount);
+
+    for (int i = 0; i < monitorCount; i++) {
+        monitorTemp = monitors[i];
+        mode = glfwGetVideoMode(monitorTemp);
+        glfwGetMonitorPos(monitorTemp, &mx, &my);
+        mw = mode->width;
+        mh = mode->height;
+
+        overlap = std::max(0, std::min(wx + ww, mx + mw) - std::max(wx, mx))
+                  * std::max(0, std::min(wy + wh, my + mh) - std::max(wy, my));
+
+        if (bestoverlap < overlap) {
+            bestoverlap = overlap;
+            bestmonitor = monitorTemp;
+        }
+    }
+    return bestmonitor;
+}
+
 
 Window::Window(bool fullscreen, bool vsync) {
 
-
     // Set client size to one resolution lower than the current one
+
+    if (!glfwInit()) {
+        glfwTerminate();
+        throw std::runtime_error("Unable to initialize glfw");
+    }
+
     monitor = glfwGetPrimaryMonitor();
     auto mode = glfwGetVideoMode(monitor);
     updateWithinWindow(mode->width);
 
     glfwSetErrorCallback(glfwErrors);
 
-    if (!glfwInit()) {
-        throw std::string("Unable to initialize glfw");
-    }
-
     glfwDefaultWindowHints();
-    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_VISIBLE, true);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -38,46 +70,47 @@ Window::Window(bool fullscreen, bool vsync) {
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, Game::DEBUG ? GLFW_TRUE : GLFW_FALSE);
 
     monitor = glfwGetPrimaryMonitor();
+//    int monitorCount = 0;
+//    GLFWmonitor **monitors = glfwGetMonitors(&monitorCount);
 
-    window = glfwCreateWindow(WIDTH, HEIGHT, "Racingmaybe", NULL,
-                              NULL);
-    if (window == NULL)
-        throw std::string("Failed to create the glfw window");
+    window = glfwCreateWindow(WIDTH, HEIGHT, "Racingmaybe", nullptr,nullptr);
+    if (window == nullptr) {
+        glfwTerminate();
+        throw std::runtime_error("Failed to create the glfw window");
+    }
 
-    glfwSetWindowFocusCallback(window,[](window, focused)
+    glfwSetWindowFocusCallback(window,[](auto window, auto focused)
     {
-        this->focused = focused;
+        Window::focused = focused;
     });
 
     // ICON
-    new Thread(()->
-    {
-        GLFWImage icon = createGLFWImage("/pics/icon.png");
-        GLFWImage.Buffer
-        icons = GLFWImage.malloc(1);
-        icons.put(0, icon);
-        glfwSetWindowIcon(window, icons);
+//    new Thread(()->
+//    {
+    const GLFWimage icon = createGLFWImage("pics/icon.png");
+    glfwSetWindowIcon(window, 1, &icon);
 
-        // Cursor
-        cursorNormal = createCursor("/pics/cursor.png", 0);
-        float xPercentCursorHand = 0.27f;
-        cursorCanPoint = createCursor("/pics/cursorCanPoint.png", xPercentCursorHand);
-        cursorIsPoint = createCursor("/pics/cursorIsPoint.png", xPercentCursorHand);
-        cursorCanHold = createCursor("/pics/cursorCanHold.png", xPercentCursorHand);
-        cursorIsHold = createCursor("/pics/cursorIsHold.png", xPercentCursorHand);
-        setCursor(CursorType.cursorNormal);
-    }).start();
+    // Cursor
+    cursorNormal = createCursor("pics/cursor.png", 0);
+    float xPercentCursorHand = 0.27f;
+    cursorCanPoint = createCursor("pics/cursorCanPoint.png", xPercentCursorHand);
+    cursorIsPoint = createCursor("pics/cursorIsPoint.png", xPercentCursorHand);
+    cursorCanHold = createCursor("pics/cursorCanHold.png", xPercentCursorHand);
+    cursorIsHold = createCursor("pics/cursorIsHold.png", xPercentCursorHand);
+    setCursor(CursorType::cursorNormal);
+    mouseStateHide(false);
+//    }).start();
 
     // Get the thread stack and push a new frame
-    try
-    (MemoryStack
-    stack = stackPush()) {
-        IntBuffer pWidth = stack.mallocInt(1);
-        IntBuffer pHeight = stack.mallocInt(1);
-
-        // Get the window size passed to glfwCreateWindow
-        glfwGetWindowSize(window, pWidth, pHeight);
-    }
+//    try
+//    (MemoryStack
+//    stack = stackPush()) {
+//        IntBuffer pWidth = stack.mallocInt(1);
+//        IntBuffer pHeight = stack.mallocInt(1);
+//
+//        // Get the window size passed to glfwCreateWindow
+//        glfwGetWindowSize(window, pWidth, pHeight);
+//    }
 
     // center
     setFullscreen(fullscreen);
@@ -85,21 +118,21 @@ Window::Window(bool fullscreen, bool vsync) {
     // Make the OpenGL context current
     glfwMakeContextCurrent(window);
 
-    glfwSwapInterval(vsync ? 1 : 0);
+    glfwSwapInterval(vsync);
 
     // Opengl
-
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        glfwTerminate();
+        throw std::runtime_error("Failed to initialize GLAD");
+    }
 //    updateViewport = true;
-    updateViewport();
-}
-
-void Window::updateViewport() {
-//		IntBuffer width = IntBuffer.allocate(1);
-//		IntBuffer height = IntBuffer.allocate(1);
-//		GLFW.glfwGetFramebufferSize(window, width, height);
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+        glfwMakeContextCurrent(window);
+        glViewport(0, 0, width, height);
+    });
     glfwMakeContextCurrent(window);
     glViewport(0, 0, WIDTH, HEIGHT);
-//        updateViewport = false;
 }
 
 void Window::mouseStateHide(bool lock) {
@@ -112,10 +145,7 @@ void Window::mouseStateToPrevious() {
     mouseStateHide(previousMouseStateVisible);
 }
 
-constexpr void Window::setCursor(CursorType cursor) {
-    if (&cursorTypeSelected != nullptr && cursorTypeSelected == cursor)
-        return;
-
+void Window::setCursor(CursorType cursor) {
     cursorTypeSelected = cursor;
     GLFWcursor *glfwCursor;
     switch (cursor) {
@@ -138,32 +168,34 @@ constexpr void Window::setCursor(CursorType cursor) {
     glfwSetCursor(window, glfwCursor);
 }
 
-constexpr GLFWcursor *Window::createCursor(const char *path, float xPercent) {
-    GLFWimage *cursor = createGLFWImage(path);
-    return glfwCreateCursor(cursor, (int) (cursor->width * xPercent), 0);
+GLFWcursor *Window::createCursor(const char *path, float xPercent) {
+    GLFWimage cursor = createGLFWImage(path);
+    return glfwCreateCursor(&cursor, (int) (cursor.width * xPercent), 0);
 }
 
-constexpr GLFWimage *Window::createGLFWImage(const char *path) {
+GLFWimage Window::createGLFWImage(const char *path) {
     int w;
     int h;
     int comp;
-    unsigned char *image = stbi_load(path, &w, &h, &comp, STBI_rgb_alpha);
+    std::string currPath = std::filesystem::current_path().string().append("/../res/");
+    const char *realPath = reinterpret_cast<const char *>(currPath.append(path).c_str());
+    unsigned char *image = stbi_load(realPath, &w, &h, &comp, STBI_rgb_alpha);
     // TODO free stb images
 
     if (image == nullptr)
-        throw (std::string("Failed to load texture at ").append(path));
+        throw std::runtime_error(std::string("Failed to load texture at ").append(realPath));
 
-    GLFWimage result = GLFWimage{};
-    result.width = w;
-    result.height = h;
-    result.pixels = image;
+    GLFWimage resultImg;
+    resultImg.width = w;
+    resultImg.height = h;
+    resultImg.pixels = image;
 
-    return &result;
+    return resultImg;
 }
 
 void Window::setFullscreen(bool fullscreen) {
 
-    GLFWmonitor *monitor = getCurrentMonitor();
+    GLFWmonitor *monitor = getCurrentMonitor(window, this->monitor);
     const GLFWvidmode *vidmode = glfwGetVideoMode(monitor);
 
     if (this->monitor == monitor && this->fullscreen == (fullscreen ? 1 : 0))
@@ -184,22 +216,19 @@ void Window::setFullscreen(bool fullscreen) {
         monitor = nullptr;
     }
 
-    int *wx;
-    int *wy;
-    glfwGetWindowPos(window, wx, wy);
+    int wx, wy;
+    glfwGetWindowPos(window, &wx, &wy);
 
-    glfwSetWindowMonitor(window, monitor, *wx, *wy,
-                         WIDTH, HEIGHT, monitor == nullptr ? GLFW_DONT_CARE : vidmode.refreshRate());
+    glfwSetWindowMonitor(window, monitor, wx, wy,
+                         WIDTH, HEIGHT, monitor == nullptr ? GLFW_DONT_CARE : vidmode->refreshRate);
 
     // if windowed
-    if (monitor == nullptr && *wx == 0 && *wy == 0) {
+    if (monitor == nullptr && wx == 0 && wy == 0) {
         glfwSetWindowPos(window, (vidmode->width - WIDTH) / 2,
                          (vidmode->height - HEIGHT) / 2);
     }
 
     // move drawing of graphics to the right place
-//    updateViewport = true;
-    updateViewport();
 }
 
 void Window::updateWithinWindow(int currWidth) {
@@ -226,35 +255,6 @@ void Window::updateWithinWindow(int currWidth) {
 //        sceneHandler.updateResolution();
 }
 
-GLFWmonitor *Window::getCurrentMonitor() {
-    int wx, wy, ww, wh;
-    int mx, my, mw, mh;
-    int overlap, bestoverlap = 0;
-    GLFWmonitor *monitorTemp, *bestmonitor = monitor;
-    const GLFWvidmode *mode;
-
-    glfwGetWindowPos(window, &wx, &wy);
-    glfwGetWindowSize(window, &ww, &wh);
-    int *monitorCount;
-    GLFWmonitor **monitors = glfwGetMonitors(monitorCount);
-
-    for (int i = 0; i < *monitorCount; i++) {
-        monitorTemp = monitors[i];
-        mode = glfwGetVideoMode(monitorTemp);
-        glfwGetMonitorPos(monitor, &mx, &my);
-        mw = mode->width;
-        mh = mode->height;
-
-        overlap = std::max(0, std::min(wx + ww, mx + mw) - std::max(wx, mx))
-                  * std::max(0, std::min(wy + wh, my + mh) - std::max(wy, my));
-
-        if (bestoverlap < overlap) {
-            bestoverlap = overlap;
-            bestmonitor = monitorTemp;
-        }
-    }
-    return bestmonitor;
-}
 
 Window::~Window() {
     glfwDestroyWindow(window);
@@ -263,4 +263,7 @@ Window::~Window() {
     glfwDestroyCursor(cursorIsPoint);
     glfwDestroyCursor(cursorCanHold);
     glfwDestroyCursor(cursorIsHold);
+//    delete window;
+//    delete monitor;
+    glfwTerminate();
 }

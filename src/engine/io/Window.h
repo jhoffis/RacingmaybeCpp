@@ -1,10 +1,12 @@
 //
 // Created by Jens Benz on 19.12.2020.
 //
-#include <GLFW\glfw3.h>
 #include <string>
+#include <glad\glad.h>
+#include <GLFW\glfw3.h>
 #ifndef UNTITLED3_WINDOW_H
 #define UNTITLED3_WINDOW_H
+#define STB_IMAGE_IMPLEMENTATION
 
 enum CursorType {
     cursorNormal,
@@ -17,41 +19,39 @@ enum CursorType {
 class Window {
 
 public:
-    static int WIDTH, HEIGHT;
+    inline static int WIDTH, HEIGHT;
     Window(bool fullscreen, bool vsync);
     ~Window();
-    constexpr void setCursor(CursorType cursor);
+    void setCursor(CursorType cursor);
     void setFullscreen(bool fullscreen);
     void mouseStateHide(bool lock);
     void mouseStateToPrevious();
-    void updateViewport();
-    GLFWwindow* getWindow() {
+    GLFWwindow *getWindow() {
         return window;
     }
-    bool isFullscreen() {
-        return fullscreen == 1;
-    }
-    bool isFocused() {
-        return focused;
-    }
+//    bool isFullscreen() {
+//        return fullscreen == 1;
+//    }
+//    bool isFocused() {
+//        return focused;
+//    }
 private:
 
+    inline static bool focused;
     // private Action closingProtocol;
 //private SceneHandler sceneHandler;
     int fullscreen = -1;
     GLFWwindow *window;
     GLFWmonitor *monitor;
-    bool previousMouseStateVisible;
+    bool previousMouseStateVisible{};
     GLFWcursor *cursorNormal, *cursorCanPoint, *cursorIsPoint, *cursorCanHold, *cursorIsHold;
-    CursorType &cursorTypeSelected;
-    bool focused;
-
+    CursorType cursorTypeSelected;
+//
     void updateWithinWindow(int currWidth);
-    constexpr GLFWcursor *createCursor(const char *path, float xPercent);
-    constexpr GLFWimage *createGLFWImage(const char *path);
-    GLFWmonitor * getCurrentMonitor();
+    GLFWcursor *createCursor(const char *path, float xPercent);
+    GLFWimage createGLFWImage(const char *path);
+    GLFWmonitor * getCurrentMonitor(GLFWwindow *window, GLFWmonitor *monitor);
 
 };
-
 
 #endif //UNTITLED3_WINDOW_H
