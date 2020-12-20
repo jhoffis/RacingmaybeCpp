@@ -1,7 +1,7 @@
 
-#include <src/engine/io/Window.h>
 #include <src/engine/graphics/Renderer.h>
 #include <src/engine/graphics/Camera.h>
+#include <src/engine/io/Window.h>
 #include "NkContext.h"
 
 class ISceneManipulator {

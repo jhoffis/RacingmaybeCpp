@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 #include "SceneHandler.h"
 #include "Scenes.h"
 
@@ -49,7 +50,7 @@ void SceneHandler::renderUILayout(NkContext ctx) {
 }
 
 void SceneHandler::keyInput(int keycode, int action) {
-
+    std::cout << keycode <<  std::endl;
 }
 
 void SceneHandler::mouseButtonInput(int button, int action, double x, double y) {

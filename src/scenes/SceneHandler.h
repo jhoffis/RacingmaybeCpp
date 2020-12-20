@@ -1,7 +1,6 @@
 #ifndef RACINGMAYBE_SCENEHANDLER
 #define RACINGMAYBE_SCENEHANDLER
 
-#include <src/engine/io/Window.h>
 #include "SceneEnvir.h"
 
 class SceneHandler : ISceneManipulator {

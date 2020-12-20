@@ -1,10 +1,10 @@
 #ifndef RACINGMAYBE_WINDOW
 #define RACINGMAYBE_WINDOW
 
+#define STB_IMAGE_IMPLEMENTATION
 #include <string>
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
-#include <src/scenes/SceneHandler.h>
 
 enum CursorType {
     cursorNormal,
@@ -24,7 +24,6 @@ public:
     void setFullscreen(bool fullscreen);
     void mouseStateHide(bool lock);
     void mouseStateToPrevious();
-    void setInput(SceneHandler &sceneHandler);
 
     GLFWwindow *getWindow() {
         return window;
