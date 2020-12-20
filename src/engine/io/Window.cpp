@@ -67,7 +67,7 @@ Window::Window(bool fullscreen, bool vsync) {
 //    if (Platform.get() == Platform.MACOSX) {
 //        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 //    }
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, Game::DEBUG ? GLFW_TRUE : GLFW_FALSE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, DEBUG ? GLFW_TRUE : GLFW_FALSE);
 
     monitor = glfwGetPrimaryMonitor();
 //    int monitorCount = 0;

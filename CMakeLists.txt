@@ -3,7 +3,7 @@ project(untitled3)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/glad.c src/engine/io/Window.cpp src/engine/io/Window.h src/main/Game.cpp src/main/Game.h)
+add_executable(${PROJECT_NAME} src/main/Game.cpp src/main/Game.h src/glad.c src/engine/io/Window.cpp src/engine/io/Window.h src/engine/utils/Timer.h src/engine/utils/Timer.cpp)
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
