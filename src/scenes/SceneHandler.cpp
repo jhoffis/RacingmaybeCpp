@@ -1,5 +1,6 @@
 #include <vector>
 #include "SceneHandler.h"
+#include "Scenes.h"
 
 SceneHandler::SceneHandler(std::vector<SceneEnvir> &scenes) : scenes(scenes) {
 
@@ -16,6 +17,25 @@ void SceneHandler::updateResolution() {
     for (int i = 0; i < sizeof(scenes); i++) {
         scenes[i].updateResolution();
     }
+}
+
+void SceneHandler::changeScene(int scenenr, bool logCurrent) {
+    if (logCurrent) {
+        if (scenenr == Scenes::PREVIOUS)
+        {
+            do {
+                scenenr = Scenes::HISTORY.top();
+                Scenes::HISTORY.pop();
+            } while (!Scenes::HISTORY.empty() && (Scenes::HISTORY.top() == scenenr || scenenr == Scenes::CURRENT));
+        }
+        Scenes::HISTORY.push(Scenes::CURRENT);
+    }
+    Scenes::CURRENT = scenenr;
+
+    // Weird previous ik.
+    if (Scenes::CURRENT < Scenes::OPTIONS)
+        Scenes::PREVIOUS_REGULAR = Scenes::CURRENT;
+
 }
 
 void SceneHandler::tick(double delta) {

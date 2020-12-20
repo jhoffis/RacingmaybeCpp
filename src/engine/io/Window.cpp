@@ -1,6 +1,3 @@
-//
-// Created by Jens Benz on 19.12.2020.
-//
 #include <algorithm>
 #include "Window.h"
 #include <stb_image.h>

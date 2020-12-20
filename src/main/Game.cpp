@@ -2,6 +2,8 @@
 //#include <GLFW\glfw3.h>
 #include <src/engine/io/Window.h>
 #include <src/engine/utils/Timer.h>
+#include <src/scenes/SceneHandler.h>
+#include <vector>
 
 //void processInput(GLFWwindow *window)
 //{
@@ -10,19 +12,22 @@
 //}
 
 int main() {
+    // Setup
     Window window(false, false);
 
+    std::vector<SceneEnvir> scenes;
+    SceneHandler sceneHandler(scenes);
+
+    // Run the game
     bool running = true;
-    double delta = 0;
     while(running)
     {
         if (glfwWindowShouldClose(window.getWindow())) {
             running = false;
             break;
         }
-        delta = Timer::nowDelta();
 //        steam.update();
-//        sceneHandler.tick(delta);
+        sceneHandler.tick(Timer::nowDelta());
 //        audio.checkMusic();
 
 //        processInput(window.getWindow());

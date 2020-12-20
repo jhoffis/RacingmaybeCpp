@@ -1,11 +1,17 @@
+#ifndef RACINGMAYBE_SCENEHANDLER
+#define RACINGMAYBE_SCENEHANDLER
+
 #include <src/engine/io/Window.h>
 #include "SceneEnvir.h"
-#include "Scenes.h"
 
 class SceneHandler : ISceneManipulator {
+    std::vector<SceneEnvir> &scenes;
+    //UIUsernameModal usernameModal;
+    //UIExitModal exitModal;
+    //static UIMessageModal messageModal;
+    //final NkColor white;
 public:
     SceneHandler(std::vector<SceneEnvir> &scenes);
-
     void updateGenerally() override;
     void updateResolution() override;
     void tick(double delta) override;
@@ -17,28 +23,7 @@ public:
     void mouseScrollInput(double x, double y) override;
 
 private:
-    std::vector<SceneEnvir> &scenes;
-//UIUsernameModal usernameModal;
-//UIExitModal exitModal;
-//static UIMessageModal messageModal;
-//final NkColor white;
-
-     void changeScene(int scenenr, bool logCurrent) {
-        if (logCurrent) {
-            if (scenenr == Scenes::PREVIOUS)
-            {
-                do {
-                    scenenr = Scenes::HISTORY.top();
-                    Scenes::HISTORY.pop();
-                } while (!Scenes::HISTORY.empty() && (Scenes::HISTORY.top() == scenenr || scenenr == Scenes::CURRENT));
-            }
-            Scenes::HISTORY.push(Scenes::CURRENT);
-        }
-        Scenes::CURRENT = scenenr;
-
-        // Weird previous ik.
-        if (Scenes::CURRENT < Scenes::OPTIONS)
-            Scenes::PREVIOUS_REGULAR = Scenes::CURRENT;
-    }
-
+     void changeScene(int scenenr, bool logCurrent);
 };
+
+#endif
