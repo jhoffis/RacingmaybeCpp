@@ -1,6 +1,6 @@
 
-struct Timer {
-    static long nowMillis();
-    static double nowDelta();
+namespace Timer {
+    long nowMillis();
+    double nowDelta();
 };
 
