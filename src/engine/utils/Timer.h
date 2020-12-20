@@ -1,4 +1,4 @@
 
-long timerGetTime();
-double timerGetDelta();
+long timerNowMillis();
+double timerNowDelta();
 

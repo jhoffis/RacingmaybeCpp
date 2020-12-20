@@ -4,14 +4,14 @@ using namespace std::chrono;
 
 long lastLoopTime;
 
-long timerGetTime() {
+long timerNowMillis() {
     return duration_cast< milliseconds >(
             system_clock::now().time_since_epoch()
     ).count();
 }
 
-double timerGetDelta() {
-    long time = timerGetTime();
+double timerNowDelta() {
+    long time = timerNowMillis();
     double delta = time - lastLoopTime;
     lastLoopTime = time;
     return delta;
