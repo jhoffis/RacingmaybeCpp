@@ -1,4 +1,6 @@
 
-long timerNowMillis();
-double timerNowDelta();
+struct Timer {
+    static long nowMillis();
+    static double nowDelta();
+};
 
