@@ -1,5 +1,4 @@
 #include <iostream>
-//#include <GLFW\glfw3.h>
 #include <src/engine/io/Window.h>
 #include <src/engine/utils/Timer.h>
 #include <src/scenes/SceneHandler.h>

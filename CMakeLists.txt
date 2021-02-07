@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 project(Racingmaybe)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -13,17 +13,16 @@ target_link_libraries(${PROJECT_NAME} OpenGL::GL)
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glm)
 target_link_libraries(${PROJECT_NAME} glm::glm)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/glad)
+add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.2)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.2/include)
+target_link_libraries(${PROJECT_NAME} glfw)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glm)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.2.bin.WIN64/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/stb)
 
-#target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.2.bin.WIN64/lib-mingw-w64/libglfw3dll.a)
-target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.2.bin.WIN64/lib-mingw-w64/libglfw3.a)
 target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/glad/glad.h)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_AUTOGEN_VERBOSE ON)
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_AUTOGEN_VERBOSE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)

@@ -4,7 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <string>
 #include <glad\glad.h>
-#include <GLFW\glfw3.h>
+#include <GLFW/glfw3.h>
 
 enum CursorType {
     cursorNormal,
