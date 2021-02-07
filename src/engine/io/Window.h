@@ -17,7 +17,7 @@ enum CursorType {
 class Window {
 
 public:
-    inline static float WIDTH, HEIGHT;
+    inline static double WIDTH, HEIGHT;
     Window(bool fullscreen, bool vsync);
     ~Window();
     void setCursor(CursorType cursor);

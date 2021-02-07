@@ -1,9 +1,19 @@
+//#define NK_IMPLEMENTATION
+//#define NK_INCLUDE_FIXED_TYPES
+//#define NK_INCLUDE_DEFAULT_ALLOCATOR
+//#define NK_INCLUDE_STANDARD_IO
+//#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
+////#define NK_INCLUDE_FONT_BAKING
+//#define NK_INCLUDE_DEFAULT_FONT
+//#include "nuklear.h"
+
 #include <iostream>
 #include <src/engine/io/Window.h>
 #include <src/engine/utils/Timer.h>
 #include <src/scenes/SceneHandler.h>
 #include <vector>
 #include <src/engine/io/InputHandler.h>
+
 
 //void processInput(GLFWwindow *window)
 //{

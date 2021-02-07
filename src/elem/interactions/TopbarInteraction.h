@@ -21,7 +21,7 @@ public:
     void press(double x, double y);
     void release();
     void move(double toX, double toY);
-    float getHeight() const;
+    double getHeight() const;
 
 private:
     void pressedWithin(double x, double y);

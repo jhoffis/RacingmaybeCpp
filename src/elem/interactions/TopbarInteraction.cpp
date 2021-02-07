@@ -24,7 +24,7 @@ void TopbarInteraction::move(double toX, double toY) {
     }
 }
 
-float TopbarInteraction::getHeight() const {
+double TopbarInteraction::getHeight() const {
     return Window::HEIGHT / heightRatio;
 }
 
