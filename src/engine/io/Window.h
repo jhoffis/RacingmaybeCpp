@@ -17,7 +17,7 @@ enum CursorType {
 class Window {
 
 public:
-    inline static int WIDTH, HEIGHT;
+    inline static float WIDTH, HEIGHT;
     Window(bool fullscreen, bool vsync);
     ~Window();
     void setCursor(CursorType cursor);
@@ -28,9 +28,9 @@ public:
     GLFWwindow *getWindow() {
         return window;
     }
-//    bool isFullscreen() {
-//        return fullscreen == 1;
-//    }
+    bool isFullscreen() {
+        return fullscreen == 1;
+    }
 //    bool isFocused() {
 //        return focused;
 //    }

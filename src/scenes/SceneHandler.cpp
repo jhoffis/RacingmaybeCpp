@@ -3,7 +3,8 @@
 #include "SceneHandler.h"
 #include "Scenes.h"
 
-SceneHandler::SceneHandler(std::vector<SceneEnvir> &scenes) : scenes(scenes) {
+SceneHandler::SceneHandler(std::vector<SceneEnvir> &scenes, TopbarInteraction &topbarTransparent) :
+    scenes(scenes), topbarTransparent(topbarTransparent) {
 
 }
 
@@ -53,12 +54,21 @@ void SceneHandler::keyInput(int keycode, int action) {
     std::cout << keycode <<  std::endl;
 }
 
-void SceneHandler::mouseButtonInput(int button, int action, double x, double y) {
-
+bool SceneHandler::mouseButtonInput(int button, int action, double x, double y) {
+//    if(topbarTransparent != null && features != null && !features.getWindow().isFullscreen()) {
+        if (action != GLFW_RELEASE) {
+            topbarTransparent.press(x, y);
+        } else {
+            topbarTransparent.release();
+        }
+//    }
+    return false;
 }
 
 void SceneHandler::mousePosInput(double x, double y) {
-
+//    if(topbar != null && features != null && !features.getWindow().isFullscreen())
+    topbarTransparent.move(x, y);
+//    mousePositionInput(x, y);
 }
 
 void SceneHandler::mouseScrollInput(double x, double y) {

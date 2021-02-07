@@ -3,7 +3,7 @@ project(Racingmaybe)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(${PROJECT_NAME} src/main/Game.cpp src/main/Game.h src/glad.c src/engine/io/Window.cpp src/engine/io/Window.h src/engine/utils/Timer.h src/engine/utils/Timer.cpp src/scenes/SceneHandler.cpp src/scenes/SceneHandler.h src/scenes/adt/ISceneManipulator.h src/scenes/SceneEnvir.cpp src/scenes/SceneEnvir.h src/scenes/Scenes.h src/engine/graphics/Renderer.cpp src/engine/graphics/Renderer.h src/engine/graphics/Camera.cpp src/engine/graphics/Camera.h src/scenes/adt/NkContext.cpp src/scenes/adt/NkContext.h src/audio/AudioRemote.h src/engine/graphics/GameObject.cpp src/engine/graphics/GameObject.h)
+add_executable(${PROJECT_NAME} src/main/Game.cpp src/main/Game.h src/glad.c src/engine/io/Window.cpp src/engine/io/Window.h src/engine/utils/Timer.h src/engine/utils/Timer.cpp src/scenes/SceneHandler.cpp src/scenes/SceneHandler.h src/scenes/adt/ISceneManipulator.h src/scenes/SceneEnvir.cpp src/scenes/SceneEnvir.h src/scenes/Scenes.h src/engine/graphics/Renderer.cpp src/engine/graphics/Renderer.h src/engine/graphics/Camera.cpp src/engine/graphics/Camera.h src/scenes/adt/NkContext.cpp src/scenes/adt/NkContext.h src/audio/AudioRemote.h src/engine/graphics/GameObject.cpp src/engine/graphics/GameObject.h src/elem/interactions/TopbarInteraction.cpp src/elem/interactions/TopbarInteraction.h src/engine/io/InputHandler.cpp src/engine/io/InputHandler.h)
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
