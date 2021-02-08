@@ -1,12 +1,4 @@
-//#define NK_IMPLEMENTATION
-//#define NK_INCLUDE_FIXED_TYPES
-//#define NK_INCLUDE_DEFAULT_ALLOCATOR
-//#define NK_INCLUDE_STANDARD_IO
-//#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-////#define NK_INCLUDE_FONT_BAKING
-//#define NK_INCLUDE_DEFAULT_FONT
-//#include "nuklear.h"
-
+#include <Libraries/Nuklear/nuklear.c>
 #include <iostream>
 #include <src/engine/io/Window.h>
 #include <src/engine/utils/Timer.h>
@@ -20,10 +12,13 @@
 //    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 //        glfwSetWindowShouldClose(window, true);
 //}
+struct nk_context ctx;
 
 int main() {
     // Setup
     Window window(false, false);
+
+    nk_init_fixed(&ctx, calloc(1, MAX_MEMORY), MAX_MEMORY, &font);
 
     /*
      * Topbars
@@ -52,11 +47,11 @@ int main() {
 //        audio.checkMusic();
 
 //        processInput(window.getWindow());
-//
+
         glfwPollEvents();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-//
+
         glfwSwapBuffers(window.getWindow());
     }
 

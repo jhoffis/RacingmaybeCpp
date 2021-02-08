@@ -7,10 +7,7 @@ class SceneEnvir : public ISceneManipulator {
 protected:
     const std::vector<GameObject> gameObjects;
     int sceneIndex;
-//    TransparentTopbar topbar;
 public:
-    void foo() {
 
-    }
 };
 
