@@ -1,5 +1,5 @@
 #include <iostream>
-#include <src/engine/io/Window.h>
+//#include <src/engine/io/Window.h>
 #include <src/engine/utils/Timer.h>
 #include <src/scenes/SceneHandler.h>
 #include <vector>
@@ -14,14 +14,14 @@ static SceneHandler sceneHandler(scenes);
 
 int main() {
     // Setup
-    Window window(false, false);
+  Window window(false, false);
 
 
     glfwSetKeyCallback(window.getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
         sceneHandler.keyInput(key, action);
 
     });
-
+    
 //    glfwSetMouseButtonCallback(myWindow, GLFWMouseButtonCallback
 //            .create((window, button, action, mods) -> {
 //        MOUSEBUTTON = button;
@@ -69,7 +69,7 @@ int main() {
 //
 //        this.currentScene.mouseScrollInput(x, y);
 //    }));
-
+    
     // Run the game
     bool running = true;
     while(running)
@@ -79,7 +79,7 @@ int main() {
             break;
         }
 //        steam.update();
-        sceneHandler.tick(Timer::nowDelta());
+        //sceneHandler.tick(Timer::nowDelta());
 //        audio.checkMusic();
 
 //        processInput(window.getWindow());
@@ -90,6 +90,6 @@ int main() {
 //
         glfwSwapBuffers(window.getWindow());
     }
-
+    
     return 0;
 }

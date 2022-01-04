@@ -118,18 +118,20 @@ Window::Window(bool fullscreen, bool vsync) {
     glfwSwapInterval(vsync);
 
     // Opengl
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+   if (!gladLoadGL(static_cast<GLADloadfunc>(glfwGetProcAddress)))
     {
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
     }
+    
 //    updateViewport = true;
     glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
         glfwMakeContextCurrent(window);
         glViewport(0, 0, width, height);
     });
     glfwMakeContextCurrent(window);
-    glViewport(0, 0, WIDTH, HEIGHT);
+
+    //glViewport(0, 0, WIDTH, HEIGHT);
 }
 
 void Window::mouseStateHide(bool lock) {
@@ -174,7 +176,7 @@ GLFWimage Window::createGLFWImage(const char *path) {
     int w;
     int h;
     int comp;
-    std::string currPath = std::filesystem::current_path().string().append("/../res/");
+    std::string currPath = std::filesystem::current_path().string().append("/res/");
     const char *realPath = reinterpret_cast<const char *>(currPath.append(path).c_str());
     unsigned char *image = stbi_load(realPath, &w, &h, &comp, STBI_rgb_alpha);
     // TODO free stb images
