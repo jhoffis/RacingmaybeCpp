@@ -14,10 +14,10 @@ static SceneHandler sceneHandler(scenes);
 
 int main() {
     // Setup
-  Window window(false, false);
+    createWindow(false, false);
 
 
-    glfwSetKeyCallback(window.getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
+    glfwSetKeyCallback(getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
         sceneHandler.keyInput(key, action);
 
     });
@@ -74,7 +74,7 @@ int main() {
     bool running = true;
     while(running)
     {
-        if (glfwWindowShouldClose(window.getWindow())) {
+        if (glfwWindowShouldClose(getWindow())) {
             running = false;
             break;
         }
@@ -88,7 +88,7 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 //
-        glfwSwapBuffers(window.getWindow());
+        glfwSwapBuffers(getWindow());
     }
     
     return 0;

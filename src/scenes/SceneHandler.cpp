@@ -43,7 +43,7 @@ void SceneHandler::tick(double delta) {
 
 }
 
-void SceneHandler::renderGame(Renderer renderer, Window window, Camera cam3d, Camera cam2d) {
+void SceneHandler::renderGame(Renderer renderer, Camera cam3d, Camera cam2d) {
 }
 
 void SceneHandler::renderUILayout(NkContext ctx) {
