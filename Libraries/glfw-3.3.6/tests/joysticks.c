@@ -53,7 +53,7 @@
 #define strdup(x) _strdup(x)
 #endif
 
-static GLFWwindow* window;
+static GLFWwindow* _window;
 static int joysticks[GLFW_JOYSTICK_LAST + 1];
 static int joystick_count = 0;
 
@@ -82,8 +82,8 @@ static void joystick_callback(int jid, int event)
         joystick_count--;
     }
 
-    if (!glfwGetWindowAttrib(window, GLFW_FOCUSED))
-        glfwRequestWindowAttention(window);
+    if (!glfwGetWindowAttrib(_window, GLFW_FOCUSED))
+        glfwRequestWindowAttention(_window);
 }
 
 static void drop_callback(GLFWwindow* window, int count, const char* paths[])
@@ -183,18 +183,18 @@ int main(void)
 
     glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
 
-    window = glfwCreateWindow(800, 600, "Joystick Test", NULL, NULL);
-    if (!window)
+    _window = glfwCreateWindow(800, 600, "Joystick Test", NULL, NULL);
+    if (!_window)
     {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
 
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(_window);
     gladLoadGL(glfwGetProcAddress);
     glfwSwapInterval(1);
 
-    nk = nk_glfw3_init(window, NK_GLFW3_INSTALL_CALLBACKS);
+    nk = nk_glfw3_init(_window, NK_GLFW3_INSTALL_CALLBACKS);
     nk_glfw3_font_stash_begin(&atlas);
     nk_glfw3_font_stash_end();
 
@@ -205,13 +205,13 @@ int main(void)
     }
 
     glfwSetJoystickCallback(joystick_callback);
-    glfwSetDropCallback(window, drop_callback);
+    glfwSetDropCallback(_window, drop_callback);
 
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(_window))
     {
         int i, width, height;
 
-        glfwGetWindowSize(window, &width, &height);
+        glfwGetWindowSize(_window, &width, &height);
 
         glClear(GL_COLOR_BUFFER_BIT);
         nk_glfw3_new_frame();
@@ -334,7 +334,7 @@ int main(void)
 
         nk_glfw3_render(NK_ANTI_ALIASING_ON);
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(_window);
         glfwPollEvents();
     }
 

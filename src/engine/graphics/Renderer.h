@@ -6,9 +6,4 @@
 #define UNTITLED3_RENDERER_H
 
 
-class Renderer {
-
-};
-
-
 #endif //UNTITLED3_RENDERER_H
