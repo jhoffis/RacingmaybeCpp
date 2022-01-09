@@ -1,5 +1,4 @@
 #include <iostream>
-//#include <src/engine/io/Window.h>
 #include <src/engine/utils/Timer.h>
 #include <src/scenes/SceneHandler.h>
 #include <vector>
@@ -51,12 +50,9 @@ int main() {
 //                            action != GLFW.GLFW_RELEASE);
 //        }
 //    }));
-//
-//    glfwSetCursorPosCallback(myWindow,
+// glfwSetCursorPosCallback(myWindow,
 //                             GLFWCursorPosCallback.create((window, xpos, ypos) -> {
-//
-//        nk_input_motion(ctx, (int) xpos, (int) ypos);
-//
+// nk_input_motion(ctx, (int) xpos, (int) ypos); 
 //        x = (float) xpos;
 //        y = (float) ypos;
 //        this.currentScene.mousePosInput(x, y);
@@ -85,8 +81,8 @@ int main() {
 //        processInput(window.getWindow());
 //
         glfwPollEvents();
-//        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
- //       glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 //
         glfwSwapBuffers(getWindow());
     }

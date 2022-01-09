@@ -252,12 +252,12 @@ void createWindow(bool fullscreen, bool vsync) {
     glfwSwapInterval(vsync);
 
     // Opengl
-/*    if (!gladLoadGL(static_cast<GLADloadfunc>(glfwGetProcAddress)))
+    if (!gladLoadGL(static_cast<GLADloadfunc>(glfwGetProcAddress)))
     {
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
     }
-*/
+
     //    updateViewport = true;
     glfwSetFramebufferSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
         glfwMakeContextCurrent(window);
