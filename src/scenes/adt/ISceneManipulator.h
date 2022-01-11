@@ -10,7 +10,7 @@ public:
     virtual void updateGenerally() = 0;
     virtual void updateResolution() = 0;
     virtual void tick(double delta) = 0;
-    virtual void renderGame(Renderer renderer, Window window, Camera cam3d, Camera cam2d) = 0;
+    virtual void renderGame() = 0;
     virtual void renderUILayout(NkContext ctx) = 0;
     virtual void keyInput(int keycode, int action) = 0;
     virtual bool mouseButtonInput(int button, int action, double x, double y) = 0;

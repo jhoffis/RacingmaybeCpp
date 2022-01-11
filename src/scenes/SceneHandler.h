@@ -17,7 +17,7 @@ public:
     void updateGenerally() override;
     void updateResolution() override;
     void tick(double delta) override;
-    void renderGame(Renderer renderer, Window window, Camera cam3d, Camera cam2d) override;
+    void renderGame() override;
     void renderUILayout(NkContext ctx) override;
     void keyInput(int keycode, int action) override;
     bool mouseButtonInput(int button, int action, double x, double y) override;
