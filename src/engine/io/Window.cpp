@@ -11,10 +11,10 @@ int _fullscreen = -1;
 GLFWwindow* _window;
 GLFWmonitor* _monitor;
 bool _previousMouseStateVisible;
-CursorType _cursorTypeSelected;
+Window::CursorType _cursorTypeSelected;
 
 
-GLFWwindow* getWindow() {
+GLFWwindow* Window::getWindow() {
     return _window;
 }
 
@@ -39,8 +39,8 @@ void updateWithinWindow(int currWidth) {
 
     int client_height = client_width * 9 / 16;
 
-    WIDTH = client_width;
-    HEIGHT = client_height;
+    Window::WIDTH = client_width;
+    Window::HEIGHT = client_height;
 
     //    TODO if (sceneHandler != null)
     //        sceneHandler.updateResolution();
@@ -77,17 +77,17 @@ GLFWmonitor* getCurrentMonitor(GLFWwindow *window, GLFWmonitor *monitor) {
 }
 
 
-void mouseStateHide(bool lock) {
+void Window::mouseStateHide(bool lock) {
     _previousMouseStateVisible = glfwGetInputMode(_window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
     glfwSetInputMode(_window, GLFW_CURSOR,
                      lock ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }
 
-void mouseStateToPrevious() {
+void Window::mouseStateToPrevious() {
     mouseStateHide(_previousMouseStateVisible);
 }
 
-void setCursor(CursorType cursor) {
+void Window::setCursor(CursorType cursor) {
     _cursorTypeSelected = cursor;
     GLFWcursor *glfwCursor;
     switch (cursor) {
@@ -135,7 +135,7 @@ GLFWcursor* createCursor(const char* path, float xPercent) {
     return glfwCreateCursor(&cursor, (int)(cursor.width * xPercent), 0);
 }
 
-void setFullscreen(bool fullscreenTemp) {
+void Window::setFullscreen(bool fullscreenTemp) {
 
     GLFWmonitor *monitorTemp = getCurrentMonitor(_window, _monitor);
     const GLFWvidmode *vidmode = glfwGetVideoMode(monitorTemp);
@@ -173,7 +173,11 @@ void setFullscreen(bool fullscreenTemp) {
     // move drawing of graphics to the right place
 }
 
-void createWindow(bool fullscreen, bool vsync) {
+void Window::switchFullscreen() {
+    setFullscreen(_fullscreen == 0);
+}
+
+void Window::createWindow(bool fullscreen, bool vsync) {
 
     // Set client size to one resolution lower than the current one
 
@@ -191,7 +195,7 @@ void createWindow(bool fullscreen, bool vsync) {
     glfwDefaultWindowHints();
     glfwWindowHint(GLFW_VISIBLE, true);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -268,7 +272,7 @@ void createWindow(bool fullscreen, bool vsync) {
     //glViewport(0, 0, WIDTH, HEIGHT);
 }
 
-void destoryWindow() {
+void Window::destoryWindow() {
     glfwDestroyWindow(_window);
     glfwDestroyCursor(glfwCursorNormal);
     glfwDestroyCursor(glfwCursorCanPoint);

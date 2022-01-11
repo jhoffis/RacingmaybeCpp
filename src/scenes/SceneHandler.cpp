@@ -54,13 +54,13 @@ void SceneHandler::keyInput(int keycode, int action) {
 }
 
 void SceneHandler::mouseButtonInput(int button, int action, double x, double y) {
-
+    std::cout << action << ' ' << x << ' ' << y << std::endl;
 }
 
 void SceneHandler::mousePosInput(double x, double y) {
-
+    std::cout << x << ' ' << y << std::endl;
 }
 
 void SceneHandler::mouseScrollInput(double x, double y) {
-
+    std::cout << y << std::endl;
 }

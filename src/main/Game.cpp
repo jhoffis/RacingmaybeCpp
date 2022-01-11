@@ -2,6 +2,7 @@
 #include <src/engine/utils/Timer.h>
 #include <src/scenes/SceneHandler.h>
 #include <vector>
+#include <thread>
 
 //void processInput(GLFWwindow *window)
 //{
@@ -13,79 +14,54 @@ static SceneHandler sceneHandler(scenes);
 
 int main() {
     // Setup
-    createWindow(false, false);
+    Window::createWindow(false, false);
 
+    static size_t x = 0;
+    static size_t y = 0;
 
-    glfwSetKeyCallback(getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
+    glfwSetKeyCallback(Window::getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
         sceneHandler.keyInput(key, action);
+    });
 
+    glfwSetMouseButtonCallback(Window::getWindow(), [](auto window, auto button, auto action, auto mods) {
+        sceneHandler.mouseButtonInput(button, action, x, y);
+    });
+
+    glfwSetCursorPosCallback(Window::getWindow(), [](auto window, auto xpos, auto ypos) {
+        x = xpos;
+        y = ypos;
+        sceneHandler.mousePosInput(x, y);
     });
     
-//    glfwSetMouseButtonCallback(myWindow, GLFWMouseButtonCallback
-//            .create((window, button, action, mods) -> {
-//        MOUSEBUTTON = button;
-//        MOUSEACTION = action;
-//        this.currentScene.mouseButtonInput(button, action, x, y);
-//        try (MemoryStack stack = stackPush()) {
-//            DoubleBuffer cx = stack.mallocDouble(1);
-//            DoubleBuffer cy = stack.mallocDouble(1);
-//
-//            glfwGetCursorPos(window, cx, cy);
-//
-//            int x = (int) cx.get(0);
-//            int y = (int) cy.get(0);
-//
-//            int nkButton;
-//            switch (button) {
-//                case GLFW_MOUSE_BUTTON_RIGHT :
-//                    nkButton = NK_BUTTON_RIGHT;
-//                    break;
-//                case GLFW_MOUSE_BUTTON_MIDDLE :
-//                    nkButton = NK_BUTTON_MIDDLE;
-//                    break;
-//                default :
-//                    nkButton = NK_BUTTON_LEFT;
-//            }
-//            nk_input_button(ctx, nkButton, x, y,
-//                            action != GLFW.GLFW_RELEASE);
-//        }
-//    }));
-// glfwSetCursorPosCallback(myWindow,
-//                             GLFWCursorPosCallback.create((window, xpos, ypos) -> {
-// nk_input_motion(ctx, (int) xpos, (int) ypos); 
-//        x = (float) xpos;
-//        y = (float) ypos;
-//        this.currentScene.mousePosInput(x, y);
-//    }));
-//
-//    glfwSetScrollCallback(myWindow,
-//                               GLFWScrollCallback.create((window, xoffset, yoffset) -> {
-//        float x = (float) xoffset;
-//        float y = (float) yoffset;
-//
-//        this.currentScene.mouseScrollInput(x, y);
-//    }));
-    
+    static bool running = true;
+    std::thread tickThread([]() {
+        std::cout << "Starting tick thread" << std::endl;
+        while (running)
+        {
+            //        steam.update();
+            sceneHandler.tick(Timer::nowDelta());
+            //        audio.checkMusic();
+
+            //        processInput(window.getWindow());
+            //
+        }
+        std::cout << "Ending tick thread" << std::endl;
+    });
+
     // Run the game
-    bool running = true;
     while(running)
     {
-        if (glfwWindowShouldClose(getWindow())) {
+        if (glfwWindowShouldClose(Window::getWindow())) {
             running = false;
+            tickThread.join();
             break;
         }
-//        steam.update();
-        //sceneHandler.tick(Timer::nowDelta());
-//        audio.checkMusic();
 
-//        processInput(window.getWindow());
-//
         glfwPollEvents();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-       // std::cout << "hei" << std::endl;
-//
-        glfwSwapBuffers(getWindow());
+        glfwSwapBuffers(Window::getWindow());
+        
     }
     
     return 0;

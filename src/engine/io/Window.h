@@ -6,21 +6,24 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
-enum CursorType {
-    cursorNormal,
-    cursorCanPoint,
-    cursorIsPoint,
-    cursorCanHold,
-    cursorIsHold
-};
+namespace Window {
+    enum CursorType {
+        cursorNormal,
+        cursorCanPoint,
+        cursorIsPoint,
+        cursorCanHold,
+        cursorIsHold
+    };
 
-inline static int WIDTH, HEIGHT;
-void createWindow(bool fullscreen, bool vsync);
-void destoryWindow();
-void setCursor(CursorType cursor);
-void setFullscreen(bool fullscreen);
-void mouseStateHide(bool lock);
-void mouseStateToPrevious();
-GLFWwindow* getWindow();
+    inline static int WIDTH, HEIGHT;
+    void createWindow(bool fullscreen, bool vsync);
+    void destoryWindow();
+    void setCursor(CursorType cursor);
+    void setFullscreen(bool fullscreen);
+    void switchFullscreen();
+    void mouseStateHide(bool lock);
+    void mouseStateToPrevious();
+    GLFWwindow* getWindow();
+}
 
 #endif
