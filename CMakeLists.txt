@@ -40,6 +40,12 @@ add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.6)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.3.6/include)
 target_link_libraries(${PROJECT_NAME} glfw)
 
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/openal-soft-1.21.1/include)
+
+add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Libraries/openal-soft-1.21.1)
+target_link_libraries(${PROJECT_NAME} OpenAL)
+
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glm)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/stb)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries)

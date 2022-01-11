@@ -3,6 +3,8 @@
 #include <src/scenes/SceneHandler.h>
 #include <vector>
 #include <thread>
+//#include "AL/al.h"
+#include "AL/alc.h"
 
 //void processInput(GLFWwindow *window)
 //{
@@ -14,6 +16,8 @@ static SceneHandler sceneHandler(scenes);
 
 int main() {
     // Setup
+    auto device = alcOpenDevice(NULL);
+
     Window::createWindow(false, false);
 
     static size_t x = 0;
