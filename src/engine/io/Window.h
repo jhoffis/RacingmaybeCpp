@@ -1,5 +1,4 @@
-#ifndef RACINGMAYBE_WINDOW
-#define RACINGMAYBE_WINDOW
+#pragma once
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <string>
@@ -25,5 +24,3 @@ namespace Window {
     void mouseStateToPrevious();
     GLFWwindow* getWindow();
 }
-
-#endif

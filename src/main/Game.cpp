@@ -1,10 +1,9 @@
 #include <iostream>
-#include <src/engine/utils/Timer.h>
-#include <src/scenes/SceneHandler.h>
+#include <engine/utils/Timer.h>
+#include <scenes/SceneHandler.h>
 #include <vector>
 #include <thread>
-//#include "AL/al.h"
-#include "AL/alc.h"
+#include <audio/AudioMaster.h>
 
 //void processInput(GLFWwindow *window)
 //{
@@ -15,9 +14,7 @@ static std::vector<SceneEnvir> scenes;
 static SceneHandler sceneHandler(scenes);
 
 int main() {
-    // Setup
-    auto device = alcOpenDevice(NULL);
-
+    createAudio();
     Window::createWindow(false, false);
 
     static size_t x = 0;

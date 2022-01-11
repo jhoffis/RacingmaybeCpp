@@ -23,10 +23,10 @@ src/engine/graphics/Renderer.h
 src/engine/graphics/Camera.cpp 
 src/engine/graphics/Camera.h 
 #src/scenes/adt/NkContext.cpp src/scenes/adt/NkContext.h 
-src/audio/AudioRemote.h 
+ 
 src/engine/graphics/GameObject.cpp 
 src/engine/graphics/GameObject.h
-)
+ "src/audio/Audio.cpp" "src/audio/AudioMaster.h" "src/audio/Audio.h")
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
@@ -49,6 +49,9 @@ target_link_libraries(${PROJECT_NAME} OpenAL)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glm)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries/stb)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Libraries)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 
 #target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glad/gl.h)
 

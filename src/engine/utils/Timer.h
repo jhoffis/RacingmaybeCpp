@@ -1,9 +1,7 @@
-#ifndef RACINGMAYBE_TIMER
-#define RACINGMAYBE_TIMER
+#pragma once
 
 namespace Timer {
     long nowMillis();
     double nowDelta();
 };
 
-#endif
