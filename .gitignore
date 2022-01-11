@@ -3,6 +3,7 @@
 /cmake-build-debug/
 /out/
 /CMakeFiles/
+/Libraries/glfw-3.3.6/CMakeFiles/
 Racingmaybe
 Makefile
 CMakeCache.txt
