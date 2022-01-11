@@ -2,3 +2,8 @@
 /.vs/
 /cmake-build-debug/
 /out/
+/CMakeFiles/
+Racingmaybe
+Makefile
+CMakeCache.txt
+cmake_install.cmake
