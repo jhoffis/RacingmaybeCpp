@@ -1,8 +1,40 @@
 #include <vector>
 #include <iostream>
 #include "SceneHandler.h"
-#include "Scenes.h"
+#include "SceneData.h"
 
+int currentScene = 0;
+const std::vector<SceneData> scenes;
+
+void SceneHandler::createSceneHandler() {
+    static size_t x = 0;
+    static size_t y = 0;
+
+    glfwSetKeyCallback(Window::getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
+        keyInput(&scenes[currentScene], key, action);
+    });
+
+    glfwSetMouseButtonCallback(Window::getWindow(), [](auto window, auto button, auto action, auto mods) {
+        mouseButtonInput(&scenes[currentScene], button, action, x, y);
+    });
+
+    glfwSetCursorPosCallback(Window::getWindow(), [](auto window, auto xpos, auto ypos) {
+        x = xpos;
+        y = ypos;
+        mousePosInput(&scenes[currentScene], x, y);
+    });
+}
+
+void SceneHandler::tick(double delta) {
+
+}
+
+void SceneHandler::render() {
+
+}
+
+
+/*
 SceneHandler::SceneHandler(std::vector<SceneEnvir> &scenes) : scenes(scenes) {
 
 }
@@ -39,12 +71,6 @@ void SceneHandler::changeScene(int scenenr, bool logCurrent) {
 
 }
 
-void SceneHandler::tick(double delta) {
-
-}
-
-void SceneHandler::renderGame() {
-}
 
 void SceneHandler::renderUILayout(NkContext ctx) {
 }
@@ -64,3 +90,4 @@ void SceneHandler::mousePosInput(double x, double y) {
 void SceneHandler::mouseScrollInput(double x, double y) {
     std::cout << y << std::endl;
 }
+*/

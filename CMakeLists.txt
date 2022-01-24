@@ -14,15 +14,13 @@ src/engine/utils/Timer.h
 src/engine/utils/Timer.cpp 
 src/scenes/SceneHandler.cpp 
 src/scenes/SceneHandler.h 
-src/scenes/adt/ISceneManipulator.h 
-src/scenes/SceneEnvir.cpp 
-src/scenes/SceneEnvir.h 
-src/scenes/Scenes.h 
+ 
+"src/scenes/SceneData.cpp" 
+"src/scenes/SceneData.h" 
 src/engine/graphics/Renderer.cpp 
 src/engine/graphics/Renderer.h 
 src/engine/graphics/Camera.cpp 
 src/engine/graphics/Camera.h 
-#src/scenes/adt/NkContext.cpp src/scenes/adt/NkContext.h 
  
 src/engine/graphics/GameObject.cpp 
 src/engine/graphics/GameObject.h
