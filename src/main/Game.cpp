@@ -15,8 +15,11 @@ int main() {
     createAudio();
     Window::createWindow(false, false);
     SceneHandler::createSceneHandler();
-    
+
+    // Run the game
     static bool running = true;
+    
+    /*
     std::thread tickThread([]() {
         std::cout << "Starting tick thread" << std::endl;
         while (running)
@@ -30,21 +33,21 @@ int main() {
         }
         std::cout << "Ending tick thread" << std::endl;
     });
-
-    // Run the game
+    */
     while(running)
     {
         if (glfwWindowShouldClose(Window::getWindow())) {
             running = false;
-            tickThread.join();
+            //tickThread.join();
             break;
         }
-        glfwPollEvents(); // maybe flytt denne over til tick?
+        SceneHandler::tick(Timer::nowDelta());
+        glfwPollEvents();
 
         SceneHandler::render();
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        //glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(Window::getWindow());
         
     }

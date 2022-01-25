@@ -26,10 +26,14 @@ src/engine/graphics/GameObject.cpp
 src/engine/graphics/GameObject.h
  "src/audio/Audio.cpp" "src/audio/AudioMaster.h" "src/audio/Audio.h")
 
-find_package(OpenGL REQUIRED COMPONENTS OpenGL)
-include_directories( ${OPENGL_INCLUDE_DIRS} )
-add_dependencies(${PROJECT_NAME} OpenGL::GL)
-target_link_libraries(${PROJECT_NAME} OpenGL::GL)
+#find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+#include_directories( ${OPENGL_INCLUDE_DIRS} )
+#add_dependencies(${PROJECT_NAME} OpenGL::GL)
+#target_link_libraries(${PROJECT_NAME} OpenGL::GL)
+
+find_package(Vulkan REQUIRED)
+target_include_directories(${PROJECT_NAME} PUBLIC ${Vulkan_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} Vulkan::Vulkan)
 
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glm)
 target_link_libraries(${PROJECT_NAME} glm::glm)

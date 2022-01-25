@@ -1,9 +1,10 @@
 #pragma once
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <string>
-#include <glad/gl.h>
+#define GLFW_INCLUDE_VULKAN
+//#include <glad/gl.h>
 #include <GLFW/glfw3.h>
+#include <string>
 
 namespace Window {
     enum CursorType {

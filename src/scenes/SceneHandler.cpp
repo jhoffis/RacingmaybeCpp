@@ -4,11 +4,13 @@
 #include "SceneData.h"
 
 int currentScene = 0;
-const std::vector<SceneData> scenes;
+std::vector<SceneData> scenes;
 
 void SceneHandler::createSceneHandler() {
     static size_t x = 0;
     static size_t y = 0;
+
+    scenes.emplace_back(0); // feiler om scenes er const / constexpr av en eller annen grunn
 
     glfwSetKeyCallback(Window::getWindow(), [](auto window, auto key, auto scancode, auto action, auto mods) {
         keyInput(&scenes[currentScene], key, action);

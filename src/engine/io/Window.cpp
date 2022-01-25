@@ -2,7 +2,9 @@
 #include "Window.h"
 #include <stb_image.h>
 #include <filesystem>
-#include "src/main/Game.h"
+#include "main/Game.h"
+
+#include <iostream>
 
 
 GLFWcursor* glfwCursorNormal, * glfwCursorCanPoint, * glfwCursorIsPoint, * glfwCursorCanHold, * glfwCursorIsHold;
@@ -255,12 +257,17 @@ void Window::createWindow(bool fullscreen, bool vsync) {
 
     glfwSwapInterval(vsync);
 
-    // Opengl
+    /* // Opengl
     if (!gladLoadGL(static_cast<GLADloadfunc>(glfwGetProcAddress)))
     {
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
     }
+    */
+    uint32_t extensionCount = 0;
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
+
+    std::cout << extensionCount << " extensions supported\n";
 
     //    updateViewport = true;
     glfwSetFramebufferSizeCallback(_window, [](GLFWwindow* window, int width, int height) {

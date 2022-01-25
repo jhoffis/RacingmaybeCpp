@@ -13,15 +13,15 @@ void tick(const SceneData* scene, auto delta)
 {
 }
 
-void keyInput(const SceneData* scene, auto key, auto action)
+void keyInput(const SceneData* scene, int key, int action)
 {
 }
 
-void mouseButtonInput(const SceneData* scene, auto button, auto action, auto x, auto y)
+void mouseButtonInput(const SceneData* scene, int button, int action, int x, int y)
 {
 }
 
-void mousePosInput(const SceneData* scene, auto x, auto y)
+void mousePosInput(const SceneData* scene, int x, int y)
 {
 	std::cout << x << ' ' << y << std::endl;
 }
