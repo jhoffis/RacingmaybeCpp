@@ -5,26 +5,19 @@ set(CMAKE_CXX_STANDARD 20)
 #add_compile_definitions(__cplusplus)
 
 add_executable(${PROJECT_NAME} 
-src/main/Game.cpp 
-src/main/Game.h 
-src/gl.c 
-src/engine/io/Window.cpp 
-src/engine/io/Window.h 
-src/engine/utils/Timer.h 
-src/engine/utils/Timer.cpp 
-src/scenes/SceneHandler.cpp 
-src/scenes/SceneHandler.h 
- 
-"src/scenes/SceneData.cpp" 
-"src/scenes/SceneData.h" 
-src/engine/graphics/Renderer.cpp 
-src/engine/graphics/Renderer.h 
-src/engine/graphics/Camera.cpp 
-src/engine/graphics/Camera.h 
- 
-src/engine/graphics/GameObject.cpp 
-src/engine/graphics/GameObject.h
- "src/audio/Audio.cpp" "src/audio/AudioMaster.h" "src/audio/Audio.h")
+src/main.cpp 
+src/main.h 
+#src/gl.c 
+src/window.cpp 
+src/window.h 
+src/timer.cpp 
+src/timer.h 
+src/scene_handler.cpp 
+src/scene_handler.h 
+"src/scene_data.cpp" 
+"src/scene_data.h" 
+ "src/audio.cpp" 
+ "src/audio.h")
 
 #find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 #include_directories( ${OPENGL_INCLUDE_DIRS} )

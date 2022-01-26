@@ -1,9 +1,10 @@
-#include "Audio.h"
-#include "AudioMaster.h"
+#include "audio.h"
 #include "AL/al.h"
 #include "AL/alc.h"
+
 #include <cstddef>
 #include <iostream>
+
 
 void createAudio() {
 	// Setup

@@ -1,7 +1,8 @@
+#include "scene_handler.h"
+#include "scene_data.h"
+
 #include <vector>
 #include <iostream>
-#include "SceneHandler.h"
-#include "SceneData.h"
 
 int currentScene = 0;
 std::vector<SceneData> scenes;

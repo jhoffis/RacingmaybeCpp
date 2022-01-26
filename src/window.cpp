@@ -1,10 +1,11 @@
+#include "window.h"
+#include "main.h"
+
 #include <algorithm>
-#include "Window.h"
 #include <stb_image.h>
 #include <filesystem>
-#include "main/Game.h"
-
 #include <iostream>
+
 
 
 GLFWcursor* glfwCursorNormal, * glfwCursorCanPoint, * glfwCursorIsPoint, * glfwCursorCanHold, * glfwCursorIsHold;
@@ -196,7 +197,7 @@ void Window::createWindow(bool fullscreen, bool vsync) {
 
     glfwDefaultWindowHints();
     glfwWindowHint(GLFW_VISIBLE, true);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -269,11 +270,13 @@ void Window::createWindow(bool fullscreen, bool vsync) {
 
     std::cout << extensionCount << " extensions supported\n";
 
+    /*
     //    updateViewport = true;
     glfwSetFramebufferSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
         glfwMakeContextCurrent(window);
   //      glViewport(0, 0, width, height);
         });
+        */
     glfwMakeContextCurrent(_window);
 
     //glViewport(0, 0, WIDTH, HEIGHT);

@@ -1,10 +1,9 @@
 #pragma once
 #include <vector>
-#include <engine/graphics/GameObject.h>
 
 struct SceneData {
     int sceneIndex;
-    const std::vector<GameObject> gameObjects;
+    //const std::vector<GameObject> gameObjects;
 
     SceneData(int sceneIndex)
         : sceneIndex(sceneIndex)

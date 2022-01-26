@@ -1,9 +1,11 @@
+#include "timer.h"
+#include "scene_handler.h"
+#include "audio.h"
+
 #include <iostream>
-#include <engine/utils/Timer.h>
-#include <scenes/SceneHandler.h>
 #include <vector>
 #include <thread>
-#include <audio/AudioMaster.h>
+
 
 //void processInput(GLFWwindow *window)
 //{
