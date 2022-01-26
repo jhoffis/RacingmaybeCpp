@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "scene_handler.h"
 #include "audio.h"
+#include "g_pipeline.h"
 
 #include <iostream>
 #include <vector>
@@ -15,9 +16,20 @@
 
 int main() {
     createAudio();
-    Window::createWindow(false, false);
-    SceneHandler::createSceneHandler();
 
+    /*
+        Graphics
+    */
+    Window::createWindow(false, false);
+    Graphics::createPipeline(
+        //"res/shaders/simple_shader.vert.spv", 
+        "res/shaders/simple_shader.vert.spv", 
+        "res/shaders/simple_shader.frag.spv"
+    );
+    /*
+        Setup scenes and entities
+    */
+    SceneHandler::createSceneHandler();
     // Run the game
     static bool running = true;
     
