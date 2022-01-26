@@ -17,7 +17,7 @@ src/scene_handler.h
 "src/scene_data.cpp" 
 "src/scene_data.h" 
  "src/audio.cpp" 
- "src/audio.h")
+ "src/audio.h" "src/g_pipeline.h" "src/g_pipeline.cpp")
 
 #find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 #include_directories( ${OPENGL_INCLUDE_DIRS} )
@@ -54,3 +54,17 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOGEN_VERBOSE ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
+
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+)
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+
+#add_custom_target(copy-runtime-files ALL
+#    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/res ${CMAKE_BINARY_DIR}/res)
