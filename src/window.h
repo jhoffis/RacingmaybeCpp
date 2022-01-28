@@ -23,5 +23,6 @@ namespace Window {
     void switchFullscreen();
     void mouseStateHide(bool lock);
     void mouseStateToPrevious();
+    void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
     GLFWwindow* getWindow();
 }

@@ -17,7 +17,12 @@ src/scene_handler.h
 "src/scene_data.cpp" 
 "src/scene_data.h" 
  "src/audio.cpp" 
- "src/audio.h" "src/g_pipeline.h" "src/g_pipeline.cpp")
+ "src/audio.h" 
+ "src/vulkan/pipeline.h" 
+ "src/vulkan/pipeline.cpp"
+ "src/vulkan/engine_device.h"
+ "src/vulkan/engine_device.cpp"
+ )
 
 #find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 #include_directories( ${OPENGL_INCLUDE_DIRS} )

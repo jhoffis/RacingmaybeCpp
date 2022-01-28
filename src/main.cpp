@@ -1,7 +1,9 @@
 #include "timer.h"
 #include "scene_handler.h"
 #include "audio.h"
-#include "g_pipeline.h"
+#include "vulkan/pipeline.h"
+#include "vulkan/engine_device.h"
+
 
 #include <iostream>
 #include <vector>
@@ -21,10 +23,13 @@ int main() {
         Graphics
     */
     Window::createWindow(false, false);
+    Graphics::EngineDevice device;
     Graphics::createPipeline(
         //"res/shaders/simple_shader.vert.spv", 
+        device,
         "res/shaders/simple_shader.vert.spv", 
-        "res/shaders/simple_shader.frag.spv"
+        "res/shaders/simple_shader.frag.spv",
+        Graphics::defaultPipelineConfig(Window::WIDTH, Window::HEIGHT)
     );
     /*
         Setup scenes and entities
@@ -62,7 +67,7 @@ int main() {
 
         //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         //glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(Window::getWindow());
+        //glfwSwapBuffers(Window::getWindow());
         
     }
     

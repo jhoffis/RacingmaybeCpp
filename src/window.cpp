@@ -1,6 +1,7 @@
 #include "window.h"
 #include "main.h"
 
+#include <stdexcept>
 #include <algorithm>
 #include <stb_image.h>
 #include <filesystem>
@@ -199,13 +200,21 @@ void Window::createWindow(bool fullscreen, bool vsync) {
     glfwWindowHint(GLFW_VISIBLE, true);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    
+    // vk
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    
+    //gl
+    /*
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, DEBUG ? GLFW_TRUE : GLFW_FALSE);
+    */
+    
     //    if (Platform.get() == Platform.MACOSX) {
     //        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     //    }
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, DEBUG ? GLFW_TRUE : GLFW_FALSE);
 
     _monitor = glfwGetPrimaryMonitor();
     //    int monitorCount = 0;
@@ -253,22 +262,17 @@ void Window::createWindow(bool fullscreen, bool vsync) {
         // center
     setFullscreen(fullscreen);
 
+    /* // Opengl
     // Make the OpenGL context current
     glfwMakeContextCurrent(_window);
-
     glfwSwapInterval(vsync);
 
-    /* // Opengl
     if (!gladLoadGL(static_cast<GLADloadfunc>(glfwGetProcAddress)))
     {
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
     }
     */
-    uint32_t extensionCount = 0;
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-
-    std::cout << extensionCount << " extensions supported\n";
 
     /*
     //    updateViewport = true;
@@ -277,10 +281,16 @@ void Window::createWindow(bool fullscreen, bool vsync) {
   //      glViewport(0, 0, width, height);
         });
         */
-    glfwMakeContextCurrent(_window);
 
     //glViewport(0, 0, WIDTH, HEIGHT);
 }
+
+void Window::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface) {
+    if (glfwCreateWindowSurface(instance, _window, nullptr, surface) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create window surface");
+    }
+}
+
 
 void Window::destoryWindow() {
     glfwDestroyWindow(_window);
