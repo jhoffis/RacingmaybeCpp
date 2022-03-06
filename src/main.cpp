@@ -70,6 +70,8 @@ int main() {
         //glfwSwapBuffers(Window::getWindow());
         
     }
+
+    Graphics::destroyPipeline();
     
     return 0;
 }
