@@ -1,7 +1,9 @@
 #pragma once
 
+#include <cstdint>
+
 namespace Timer {
-    long nowMillis();
+    uint64_t nowMillis();
     double nowDelta();
 };
 

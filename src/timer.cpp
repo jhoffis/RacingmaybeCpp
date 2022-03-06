@@ -2,17 +2,17 @@
 #include <chrono>
 using namespace std::chrono;
 
-long lastLoopTime;
+uint64_t lastLoopTime;
 
-long Timer::nowMillis() {
+uint64_t Timer::nowMillis() {
     return duration_cast< milliseconds >(
             system_clock::now().time_since_epoch()
     ).count();
 }
 
 double Timer::nowDelta() {
-    long time = nowMillis();
-    double delta = time - lastLoopTime;
+    auto time = nowMillis();
+    auto delta = static_cast<double>(time - lastLoopTime);
     lastLoopTime = time;
     return delta;
 }
